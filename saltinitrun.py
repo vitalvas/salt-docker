@@ -7,9 +7,11 @@ import signal
 cmds = {
     'SALT_API': 'salt-api',
     'SALT_MASTER': 'salt-master',
-    'SALT_SYNDIC': 'salt-syndic'
+    'SALT_SYNDIC': 'salt-syndic',
+    'SALT_MINION': 'salt-minion',
+    'SALT_PROXY': 'salt-proxy'
 }
-    
+
 
 async def main():
     futures = []
