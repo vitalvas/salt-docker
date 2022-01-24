@@ -47,12 +47,12 @@ if req['ok']:
                 if os.path.exists(f'{pki_dir}/{key_dir}/{host}'):
                     os.remove(f'{pki_dir}/{key_dir}/{host}')
         
-        open(f'{pki_dir}/minions_autosign/{host}', 'w').close()
-        
-        send_msg(
-            f'Acceped minion: <code>{host}</code>; digest: <code>{key_digest}</code>',
-            reply_to_message_id=row['message']['message_id']
-        )
+            open(f'{pki_dir}/minions_autosign/{host}', 'w').close()
+            
+            send_msg(
+                f'Acceped minion: <code>{host}</code>; digest: <code>{key_digest}</code>',
+                reply_to_message_id=row['message']['message_id']
+            )
 
 lock_file = f'/tmp/host-{host}-{act}-{key_digest}.lock'
 
