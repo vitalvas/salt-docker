@@ -13,7 +13,7 @@ jobs:
       matrix:
         salt_version:
           - 3003.3
-          - 3004
+          - 3004.1
           - latest
 
     steps:
