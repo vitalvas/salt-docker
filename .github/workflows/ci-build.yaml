@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         salt_version:
-          - 3003.3
+          - 3003.4
           - 3004.1
           - latest
 
