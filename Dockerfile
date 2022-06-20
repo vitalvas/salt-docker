@@ -4,7 +4,7 @@ ARG SALT_VERSION
 
 ADD bin /opt/bin/
 
-RUN apk add --no-cache gcc g++ autoconf make libffi-dev openssl-dev libgit2-dev swig git openssh-client && \
+RUN apk add --no-cache gcc g++ autoconf make libffi-dev openssl-dev libgit2-dev swig git openssh && \
     addgroup -g 450 -S salt && \
     adduser -s /bin/sh -SD -G salt salt && \
     mkdir -p /etc/pki /etc/salt/pki /etc/salt/minion.d/ /etc/salt/master.d /etc/salt/proxy.d /var/cache/salt /var/log/salt /var/run/salt && \
