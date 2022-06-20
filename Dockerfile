@@ -11,7 +11,6 @@ RUN apk add --no-cache gcc g++ autoconf make libffi-dev openssl-dev libgit2-dev 
     chmod -R 2775 /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt && \
     chgrp -R salt /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt && \
     pip3 install --no-cache-dir salt=="${SALT_VERSION}" && \
-    pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2 && \
-    su - salt -c 'salt-run salt.cmd tls.create_self_signed_cert'
+    pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2
 
 CMD ["/usr/local/bin/salt-master"]
