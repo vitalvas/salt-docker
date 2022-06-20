@@ -1,9 +1,17 @@
+FROM python:3.10-alpine
+
 ARG SALT_VERSION
-FROM saltstack/salt:${SALT_VERSION}
 
 ADD bin /opt/bin/
 
-RUN apk add --no-cache swig git openssh-client && \
-    pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython
+RUN apk add --no-cache gcc g++ autoconf make libffi-dev openssl-dev libgit2-dev swig git openssh-client && \
+    addgroup -g 450 -S salt && \
+    adduser -s /bin/sh -SD -G salt salt && \
+    mkdir -p /etc/pki /etc/salt/pki /etc/salt/minion.d/ /etc/salt/master.d /etc/salt/proxy.d /var/cache/salt /var/log/salt /var/run/salt && \
+    chmod -R 2775 /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt && \
+    chgrp -R salt /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt && \
+    pip3 install --no-cache-dir salt=="${SALT_VERSION}" && \
+    pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2 && \
+    su - salt -c 'salt-run salt.cmd tls.create_self_signed_cert'
 
-CMD ["/opt/bin/saltinitrun.py"]
+CMD ["/usr/local/bin/salt-master"]
