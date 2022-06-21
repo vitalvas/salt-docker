@@ -1,16 +1,14 @@
-FROM python:3.8-alpine
+FROM ubuntu:focal
 
-ARG SALT_VERSION
+RUN apt update -qy && \
+    apt install -qy git openssh-server python3-pip curl && \
+    curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest/salt-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=amd64] https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest focal main" > /etc/apt/sources.list.d/salt.list && \
+    apt update -qy && \
+    apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api && \
+    pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2
 
 ADD bin /opt/bin/
 
-RUN apk add --no-cache gcc g++ autoconf make libffi-dev openssl-dev libgit2-dev swig git openssh
-RUN addgroup -g 450 -S salt && adduser -s /bin/sh -SD -G salt salt && \
-    mkdir -p /etc/pki /etc/salt/pki /etc/salt/minion.d/ /etc/salt/master.d /etc/salt/proxy.d /var/cache/salt /var/log/salt /var/run/salt && \
-    chmod -R 775 /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt && \
-    chown -R salt:salt /etc/pki /etc/salt /var/cache/salt /var/log/salt /var/run/salt
-
-RUN USE_STATIC_REQUIREMENTS=1 pip3 install --no-cache-dir salt=="${SALT_VERSION}"
-RUN USE_STATIC_REQUIREMENTS=1 pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2
 
 CMD ["/usr/local/bin/salt-master"]
