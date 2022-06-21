@@ -25,7 +25,6 @@ services:
 
   master:
     image: ghcr.io/vitalvas/salt-docker:latest
-    command: /usr/local/bin/salt-master
     restart: always
     read_only: true
     network_mode: 'host'
