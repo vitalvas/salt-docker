@@ -1,5 +1,10 @@
 # Custom docker build of SaltStack
 
+## Supported platforms
+
+* x86-64 (AMD64)
+* ARM64
+
 ## Run
 
 Example:
