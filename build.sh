@@ -2,8 +2,10 @@
 
 set -e -o pipefail
 
+export USE_STATIC_REQUIREMENTS=1
+
 apt update -qy
-apt install -qy git openssh-server python3-pip curl dpkg swig
+apt install -qy git openssh-server python3-pip curl dpkg swig libssl-dev openssl libgit2-dev
 
 if [ ! -f  "/usr/sbin/dpkg-split" ]; then
     ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
