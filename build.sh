@@ -3,7 +3,7 @@
 set -e -o pipefail
 
 apt update -qy
-apt install -qy git openssh-server python3-pip curl
+apt install -qy git openssh-server python3-pip curl dpkg
 
 if [ ! -f  "/usr/sbin/dpkg-split" ]; then
     ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
