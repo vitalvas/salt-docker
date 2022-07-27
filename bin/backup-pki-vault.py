@@ -37,6 +37,9 @@ def get_fingerprints(path):
     rows = {}
 
     for key in list_response['data']['keys']:
+        if key.startswith("_"):
+            continue
+
         read_response = client.secrets.kv.read_secret_version(
             mount_point=vault_mount_point,
             path=f'{path}/{key}'
