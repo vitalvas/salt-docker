@@ -22,13 +22,13 @@ elif os.getenv('VAULT_ROLE_ID') and os.getenv('VAULT_SECRET_ID'):
     )
 
 
-vault_path = os.getenv('VAULT_PATH', 'salt/secrets')
-
+vault_mount_point = os.getenv('VAULT_MOUNT_POINT', 'salt/secrets')
+vault_path = os.getenv('VAULT_PATH', 'master')
 
 def get_fingerprints(path):
     try:
         list_response = client.secrets.kv.v2.list_secrets(
-            mount_point=vault_path,
+            mount_point=vault_mount_point,
             path=path
         )
     except:
@@ -38,7 +38,7 @@ def get_fingerprints(path):
 
     for key in list_response['data']['keys']:
         read_response = client.secrets.kv.read_secret_version(
-            mount_point=vault_path,
+            mount_point=vault_mount_point,
             path=f'{path}/{key}'
         )
         rows[key] = read_response['data']['data']['fingerprint']
@@ -46,7 +46,7 @@ def get_fingerprints(path):
     return rows
 
 
-master_keys = get_fingerprints(path='pki/master/master/')
+master_keys = get_fingerprints(path=f'{vault_path}/pki/master/')
 
 for name in ['master.pem', 'master.pub']:
     file_name = f'/etc/salt/pki/master/{name}'
@@ -61,8 +61,8 @@ for name in ['master.pem', 'master.pub']:
 
         if v_fingerprint != fingerprint:
             client.secrets.kv.v2.create_or_update_secret(
-                mount_point=vault_path,
-                path=f'pki/master/master/{name}',
+                mount_point=vault_mount_point,
+                path=f'{vault_path}/pki/master/{name}',
                 secret={
                     'data': data,
                     'fingerprint': fingerprint
@@ -70,7 +70,7 @@ for name in ['master.pem', 'master.pub']:
             )
 
 
-minion_keys = get_fingerprints(path='pki/master/minion/')
+minion_keys = get_fingerprints(path=f'{vault_path}/pki/minion/')
 
 files = [
     p for p in pathlib.Path('/etc/salt/pki/master/minions/').iterdir() if p.is_file()
@@ -90,8 +90,8 @@ for file_path in files:
 
         if v_fingerprint != fingerprint:
             client.secrets.kv.v2.create_or_update_secret(
-                mount_point=vault_path,
-                path=f'pki/master/minion/{file_name}',
+                mount_point=vault_mount_point,
+                path=f'{vault_path}/pki/minion/{file_name}',
                 secret={
                     'data': data,
                     'fingerprint': fingerprint
@@ -100,6 +100,6 @@ for file_path in files:
 
 for key in minion_keys.keys():
     client.secrets.kv.v2.delete_metadata_and_all_versions(
-        mount_point=vault_path,
-        path=f'pki/master/minion/{key}',
+        mount_point=vault_mount_point,
+        path=f'{vault_path}/pki/minion/{key}',
     )
