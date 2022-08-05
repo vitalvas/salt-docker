@@ -47,6 +47,8 @@ def get_minions_list():
     return minions                
 
 
+os.makedirs('/etc/salt/pki/master/minions', exist_ok=True)
+
 for row in get_minions_list():
     read_response = client.secrets.kv.read_secret_version(
         mount_point=vault_mount_point,
@@ -57,7 +59,6 @@ for row in get_minions_list():
         f.write(read_response['data']['data']['data'])
 
 for name in ['master.pem', 'master.pub']:
-
     read_response = client.secrets.kv.read_secret_version(
         mount_point=vault_mount_point,
         path=f'{vault_path}/pki/master/{name}'
