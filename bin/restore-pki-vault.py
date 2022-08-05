@@ -50,7 +50,7 @@ def get_minions_list():
 for row in get_minions_list():
     read_response = client.secrets.kv.read_secret_version(
         mount_point=vault_mount_point,
-        path=f'{vault_path}/pki/minion/{key}'
+        path=f'{vault_path}/pki/minion/{row}'
     )
     
     with open(f'/etc/salt/pki/master/minions/{row}', 'w') as f:
