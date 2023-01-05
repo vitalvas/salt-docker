@@ -5,7 +5,7 @@ set -e -o pipefail
 export USE_STATIC_REQUIREMENTS=1
 
 apt update -qy
-apt install -qy git openssh-server python3-pip curl dpkg swig libssl-dev openssl libgit2-dev python-is-python3
+apt install -qy git openssh-server python3-pip curl dpkg swig libssl-dev openssl libgit2-dev python-is-python3 libgit2-dev
 
 if [ ! -f  "/usr/sbin/dpkg-split" ]; then
     ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
@@ -21,4 +21,6 @@ apt update -qy
 
 apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
 
+pip3 install --no-cache-dir --upgrade pip
 pip3 install --no-cache-dir redis M2Crypto pycrypto psycopg-binary hvac gitpython pygit2
+
