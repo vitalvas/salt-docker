@@ -37,4 +37,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/${{ github.repository }}:latest
           build-args: |
-            SALT_VERSION=3004.1
+            SALT_VERSION=3005.1
+
