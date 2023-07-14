@@ -27,14 +27,16 @@ async def main():
     
     if not futures and default in cmds:
         futures.append(
-            await asyncio.create_subprocess_exec(cmd[default])
+            await asyncio.create_subprocess_exec(cmds[default])
         )
     
     await asyncio.gather(*[future.communicate() for future in futures])
 
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     for signame in {"SIGINT", "SIGTERM"}:
         loop.add_signal_handler(getattr(signal, signame), loop.stop)
 
