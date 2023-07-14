@@ -5,6 +5,7 @@ import sys
 import requests
 import datetime
 
+
 TG_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TG_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 SALT_CLUSTER_ID = os.getenv('SALT_CLUSTER_ID', 'undef')
