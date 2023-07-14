@@ -21,8 +21,7 @@ curl -fsSL -o /usr/share/keyrings/salt-pubkey.gpg https://repo.saltproject.io/sa
 echo "deb [signed-by=/usr/share/keyrings/salt-pubkey.gpg] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/latest jammy main" > /etc/apt/sources.list.d/salt.list
 apt update -qy
 
+apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
+
 /opt/saltstack/salt/salt-pip install --no-cache-dir redis M2Crypto pycrypto psycopg-binary gitpython pygit2 junos-eznc jxmlease yamlordereddictloader napalm
 pip3 install --no-cache-dir hvac
-
-
-apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
