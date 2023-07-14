@@ -1,15 +1,15 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import asyncio
 import os
 import signal
 
 cmds = {
-    'SALT_API': 'salt-api',
-    'SALT_MASTER': 'salt-master',
-    'SALT_SYNDIC': 'salt-syndic',
-    'SALT_MINION': 'salt-minion',
-    'SALT_PROXY': 'salt-proxy'
+    'SALT_API': '/opt/saltstack/salt/salt-api',
+    'SALT_MASTER': '/opt/saltstack/salt/salt-master',
+    'SALT_SYNDIC': '/opt/saltstack/salt/salt-syndic',
+    'SALT_MINION': '/opt/saltstack/salt/salt-minion',
+    'SALT_PROXY': '/opt/saltstack/salt/salt-proxy'
 }
 
 
@@ -21,6 +21,11 @@ async def main():
             futures.append(
                 await asyncio.create_subprocess_exec(cmd)
             )
+    
+    if not futures:
+        futures.append(
+            await asyncio.create_subprocess_exec(cmd['SALT_MASTER'])
+        )
     
     await asyncio.gather(*[future.communicate() for future in futures])
 
