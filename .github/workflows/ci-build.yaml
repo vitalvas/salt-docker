@@ -3,10 +3,11 @@ name: Build
 on:
   push:
     branches:
+      - '*/*'
       - master
 
 jobs:
-  build:
+  build-base:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,8 +35,5 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: ghcr.io/${{ github.repository }}:latest
-          build-args: |
-            SALT_VERSION=3005.1
-

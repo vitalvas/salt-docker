@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import os
 import sys
 import requests
 import datetime
+
 
 TG_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TG_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')

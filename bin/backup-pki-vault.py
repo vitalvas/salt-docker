@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import os
 import time
@@ -27,13 +27,15 @@ elif os.getenv('VAULT_ROLE_ID') and os.getenv('VAULT_SECRET_ID'):
 vault_mount_point = os.getenv('VAULT_MOUNT_POINT', 'salt/secrets')
 vault_path = os.getenv('VAULT_PATH', 'master')
 
-lock_file = '/tmp/backup-pki-vault.lock'
-if os.path.exists(lock_file):
-    lock_age = time.time() - os.path.getmtime(lock_file)
-    if lock_age < int(os.getenv('LOCK_AGE', '300')):
-        sys.exit()
 
-open(lock_file, 'w').close()
+if os.getenv('LOCK_ENABLED'):
+    lock_file = '/tmp/backup-pki-vault.lock'
+    if os.path.exists(lock_file):
+        lock_age = time.time() - os.path.getmtime(lock_file)
+        if lock_age < int(os.getenv('LOCK_AGE', '300')):
+            sys.exit()
+
+    open(lock_file, 'w').close()
 
 
 def get_fingerprints(path):

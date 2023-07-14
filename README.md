@@ -12,17 +12,6 @@ Example:
 ```yaml
 version: '3.9'
 services:
-  watchtower:
-    image: containrrr/watchtower
-    restart: always
-    network_mode: 'host'
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_INCLUDE_RESTARTING=true
-      - WATCHTOWER_POLL_INTERVAL=43200
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   master:
     image: ghcr.io/vitalvas/salt-docker:latest
     restart: always
