@@ -2,6 +2,7 @@
 
 set -e -o pipefail
 
+export DEBIAN_FRONTEND=noninteractive
 export USE_STATIC_REQUIREMENTS=1
 
 apt update -qy
