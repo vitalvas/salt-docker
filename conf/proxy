@@ -3,7 +3,6 @@ ipv6: True
 user: root
 state_output: mixed
 
-log_file: file:///dev/stdout
 log_level: info
 
 default_include: /etc/salt/proxy.d/*.conf
