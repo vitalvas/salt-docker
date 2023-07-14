@@ -4,6 +4,9 @@ import asyncio
 import os
 import signal
 
+
+default = os.getenv('DEFAULT_RUN', 'SALT_MASTER')
+
 cmds = {
     'SALT_API': '/opt/saltstack/salt/salt-api',
     'SALT_MASTER': '/opt/saltstack/salt/salt-master',
@@ -22,9 +25,9 @@ async def main():
                 await asyncio.create_subprocess_exec(cmd)
             )
     
-    if not futures:
+    if not futures and default in cmds:
         futures.append(
-            await asyncio.create_subprocess_exec(cmd['SALT_MASTER'])
+            await asyncio.create_subprocess_exec(cmd[default])
         )
     
     await asyncio.gather(*[future.communicate() for future in futures])
