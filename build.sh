@@ -41,7 +41,7 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     pyghmi \
     pygit2 \
     pynetbox \
-    python-consul
+    python-consul \
     redis \
     service-identity \
     tornado \
