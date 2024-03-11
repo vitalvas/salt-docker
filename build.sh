@@ -27,7 +27,26 @@ apt update -qy
 
 apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
 
-/opt/saltstack/salt/salt-pip install --no-cache-dir redis M2Crypto pycrypto psycopg-binary gitpython pygit2 junos-eznc jxmlease yamlordereddictloader napalm twisted tornado pynetbox jira pyghmi dnspython service-identity
+/opt/saltstack/salt/salt-pip install --no-cache-dir \
+    dnspython \
+    gitpython \
+    hvac \
+    jira \
+    junos-eznc \
+    jxmlease \
+    M2Crypto \
+    napalm \
+    psycopg-binary \
+    pycrypto \
+    pyghmi \
+    pygit2 \
+    pynetbox \
+    python-consul
+    redis \
+    service-identity \
+    tornado \
+    twisted \
+    yamlordereddictloader 
 
 pip3 install --no-cache-dir hvac
 
