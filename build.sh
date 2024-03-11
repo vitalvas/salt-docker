@@ -27,7 +27,7 @@ apt update -qy
 
 apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
 
-/opt/saltstack/salt/salt-pip install --no-cache-dir \
+SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip install --no-cache-dir \
     dnspython \
     gitpython \
     hvac \
