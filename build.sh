@@ -7,7 +7,7 @@ export USE_STATIC_REQUIREMENTS=1
 
 apt update -qy
 apt install -qy git openssh-server python3-pip curl dpkg swig libssl-dev openssl libgit2-dev python-is-python3 libgit2-dev libffi-dev python3-dev python3-cffi libxslt1-dev \
-    python3-requests python3-requests-oauthlib
+    python3-requests python3-requests-oauthlib patchelf
 
 if [ ! -f  "/usr/sbin/dpkg-split" ]; then
     ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
