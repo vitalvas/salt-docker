@@ -18,10 +18,10 @@ if [ ! -f "/usr/sbin/dpkg-deb" ]; then
 fi
 
 curl -fsSL -o /usr/share/keyrings/salt-pubkey-amd64.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-amd64.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/latest jammy main" > /etc/apt/sources.list.d/salt-amd64.list
+echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-amd64.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/3006 jammy main" > /etc/apt/sources.list.d/salt-amd64.list
 
 curl -fsSL -o /usr/share/keyrings/salt-pubkey-arm64.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/arm64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-arm64.gpg arch=arm64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/arm64/latest jammy main" > /etc/apt/sources.list.d/salt-arm64.list
+echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-arm64.gpg arch=arm64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/arm64/3006 jammy main" > /etc/apt/sources.list.d/salt-arm64.list
 
 apt update -qy
 
