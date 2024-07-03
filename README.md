@@ -13,7 +13,7 @@ Example:
 version: '3.9'
 services:
   master:
-    image: ghcr.io/vitalvas/salt-docker:latest
+    image: public.ecr.aws/vitalvas/salt-master:latest
     restart: always
     read_only: true
     network_mode: 'host'
