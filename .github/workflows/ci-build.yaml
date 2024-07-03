@@ -45,8 +45,6 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v5
-        env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         with:
           context: .
           platforms: linux/amd64,linux/arm64

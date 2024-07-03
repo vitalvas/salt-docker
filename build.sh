@@ -28,6 +28,9 @@ apt update -qy
 apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
 
 SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip install --no-cache-dir \
+    awscli \
+    boto \
+    boto3 \
     dnspython \
     gitpython \
     hvac \
@@ -46,8 +49,6 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     service-identity \
     tornado \
     twisted \
-    yamlordereddictloader 
-
-pip3 install --no-cache-dir hvac
+    yamlordereddictloader
 
 apt purge -qqy dmidecode
