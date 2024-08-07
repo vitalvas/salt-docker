@@ -42,7 +42,7 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     psycopg-binary \
     pycrypto \
     pyghmi \
-    pygit2 \
+    pygit2==1.14.1 \
     pynetbox \
     python-consul \
     redis \
