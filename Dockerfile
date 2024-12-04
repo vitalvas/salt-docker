@@ -1,5 +1,7 @@
 FROM ubuntu:jammy
 
+ARG VERSION
+
 COPY build.sh /build.sh
 RUN bash -x /build.sh
 

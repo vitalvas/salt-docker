@@ -5,8 +5,15 @@ set -e -o pipefail
 export DEBIAN_FRONTEND=noninteractive
 export USE_STATIC_REQUIREMENTS=1
 
+if [ -z "${VERSION}" ]; then
+    echo "VERSION is not set"
+    exit 1
+fi
+
+
 apt update -qy
-apt install -qy git openssh-server curl dpkg swig libssl-dev openssl libgit2-dev libffi-dev libgit2-dev libxslt1-dev  patchelf \
+apt install -qy \
+    git openssh-server curl dpkg swig libssl-dev openssl libgit2-dev libffi-dev libxslt1-dev patchelf \
     python-is-python3 python3-pip python3-dev python3-cffi 
 
 if [ ! -f  "/usr/sbin/dpkg-split" ]; then
@@ -17,14 +24,16 @@ if [ ! -f "/usr/sbin/dpkg-deb" ]; then
     ln -s /usr/bin/dpkg-deb /usr/sbin/dpkg-deb
 fi
 
-curl -fsSL -o /usr/share/keyrings/salt-pubkey-amd64.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-amd64.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/3007 jammy main" > /etc/apt/sources.list.d/salt-amd64.list
+curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
+echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" > /etc/apt/sources.list.d/salt.list
 
-curl -fsSL -o /usr/share/keyrings/salt-pubkey-arm64.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/arm64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-echo "deb [signed-by=/usr/share/keyrings/salt-pubkey-arm64.gpg arch=arm64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/arm64/3007 jammy main" > /etc/apt/sources.list.d/salt-arm64.list
+cat <<EOF >/etc/apt/preferences.d/salt-pin
+Package: salt-*
+Pin: version ${VERSION}.*
+Pin-Priority: 1001
+EOF
 
 apt update -qy
-
 apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
 
 SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip install --no-cache-dir \

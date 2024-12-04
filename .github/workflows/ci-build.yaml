@@ -11,8 +11,14 @@ permissions:
   contents: read
 
 jobs:
-  build-base:
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version:
+          - 3006
+          - 3007
 
     steps:
       - name: Checkout
@@ -20,7 +26,7 @@ jobs:
 
       - name: Set docker tag
         run: |
-          echo "BUILD_TAG=${GITHUB_REF_NAME}-$(date +'%F-%H-%M')-$(echo -n $GITHUB_SHA | cut -c 1-7)" >> $GITHUB_ENV
+          echo "BUILD_TAG=${{ matrix.version }}-${GITHUB_REF_NAME}-$(date +'%F%H%M')-$(echo -n $GITHUB_SHA | cut -c 1-7)" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -49,4 +55,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: public.ecr.aws/vitalvas/salt-master:${{ env.BUILD_TAG }},public.ecr.aws/vitalvas/salt-master:latest
+          tags: public.ecr.aws/vitalvas/salt-master:${{ env.BUILD_TAG }},public.ecr.aws/vitalvas/salt-master:${{ matrix.version }}-latest
+          build-args: |
+            VERSION=${{ matrix.version }}
