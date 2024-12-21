@@ -47,13 +47,15 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     junos-eznc \
     jxmlease \
     M2Crypto \
+    Mako \
+    msgpack-pure \
     napalm \
     psycopg-binary \
+    py-consul \
     pycrypto \
     pyghmi \
     pygit2==1.14.1 \
     pynetbox \
-    python-consul \
     redis \
     service-identity \
     tornado \
