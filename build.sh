@@ -58,6 +58,7 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     pynetbox \
     redis \
     salt-sproxy \ 
+    salt-cumulus \ 
     service-identity \
     tornado \
     twisted \
