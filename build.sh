@@ -57,8 +57,8 @@ SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip instal
     pygit2==1.14.1 \
     pynetbox \
     redis \
-    salt-sproxy \ 
-    salt-cumulus \ 
+    salt-sproxy \
+    salt-cumulus \
     service-identity \
     tornado \
     twisted \
