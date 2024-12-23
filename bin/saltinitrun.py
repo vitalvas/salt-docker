@@ -8,11 +8,11 @@ import signal
 default = os.getenv('DEFAULT_RUN', 'SALT_MASTER')
 
 cmds = {
-    'SALT_API': '/opt/saltstack/salt/salt-api',
-    'SALT_MASTER': '/opt/saltstack/salt/salt-master',
-    'SALT_SYNDIC': '/opt/saltstack/salt/salt-syndic',
-    'SALT_MINION': '/opt/saltstack/salt/salt-minion',
-    'SALT_PROXY': '/opt/saltstack/salt/salt-proxy'
+    'SALT_API': '/opt/saltstack/salt/bin/salt-api',
+    'SALT_MASTER': '/opt/saltstack/salt/bin/salt-master',
+    'SALT_SYNDIC': '/opt/saltstack/salt/bin/salt-syndic',
+    'SALT_MINION': '/opt/saltstack/salt/bin/salt-minion',
+    'SALT_PROXY': '/opt/saltstack/salt/bin/salt-proxy'
 }
 
 
