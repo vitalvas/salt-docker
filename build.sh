@@ -10,58 +10,60 @@ if [ -z "${VERSION}" ]; then
     exit 1
 fi
 
-
 apt update -qy
+apt upgrade -qy
 apt install -qy \
     git openssh-server curl dpkg swig libssl-dev openssl libgit2-dev libffi-dev libxslt1-dev patchelf \
-    python-is-python3 python3-pip python3-dev python3-cffi 
+    python-is-python3 python3-pip python3-dev python3-cffi python3-venv
 
-if [ ! -f  "/usr/sbin/dpkg-split" ]; then
-    ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
-fi
+python3 -m venv /opt/saltstack/salt
+/opt/saltstack/salt/bin/pip install salt==${VERSION}.*
 
-if [ ! -f "/usr/sbin/dpkg-deb" ]; then
-    ln -s /usr/bin/dpkg-deb /usr/sbin/dpkg-deb
-fi
+mkdir -p /etc/salt
+mkdir -p /etc/salt/master.d
 
-curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
-echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" > /etc/apt/sources.list.d/salt.list
-
-cat <<EOF >/etc/apt/preferences.d/salt-pin
-Package: salt-*
-Pin: version ${VERSION}.*
-Pin-Priority: 1001
-EOF
-
-apt update -qy
-apt install -qy salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
-
-SWIG_FEATURES="-I/opt/saltstack/salt/include" /opt/saltstack/salt/bin/pip install --no-cache-dir \
+/opt/saltstack/salt/bin/pip install --no-cache-dir \
     awscli \
     boto \
     boto3 \
+    cffi \
+    cherrypy \
+    cryptography \
+    distro \
     dnspython \
+    gitdb \
     gitpython \
     hvac \
+    jinja2 \
     jira \
     junos-eznc \
     jxmlease \
+    looseversion \
     M2Crypto \
     Mako \
+    msgpack \
     msgpack-pure \
     napalm \
+    packaging \
     psycopg-binary \
     py-consul \
     pycrypto \
+    pycryptodome \
     pyghmi \
     pygit2==1.14.1 \
     pynetbox \
+    pyyaml \
     redis \
-    salt-sproxy \
     salt-cumulus \
+    salt-sproxy \
     service-identity \
     tornado \
     twisted \
+    zmq \
     yamlordereddictloader
 
 apt purge -qqy dmidecode
+
+for name in $(ls /opt/saltstack/salt/bin/salt*); do 
+    ln -s $name /usr/local/bin/$(basename $name)
+done
