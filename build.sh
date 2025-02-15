@@ -13,7 +13,7 @@ fi
 apt update -qy
 apt upgrade -qy
 apt install -qy \
-    git openssh-server curl dpkg swig libssl-dev openssl libgit2-dev libffi-dev libxslt1-dev patchelf \
+    git openssh-server curl dpkg swig libssl-dev openssl libc-bin libgit2-dev libffi-dev libxslt1-dev patchelf \
     python-is-python3 python3-pip python3-dev python3-cffi python3-venv
 
 python3 -m venv /opt/saltstack/salt
