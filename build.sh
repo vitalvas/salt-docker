@@ -17,6 +17,7 @@ apt install -qy \
     python-is-python3 python3-pip python3-dev python3-cffi python3-venv
 
 python3 -m venv /opt/saltstack/salt
+/opt/saltstack/salt/bin/pip install wheel
 /opt/saltstack/salt/bin/pip install salt==${VERSION}.*
 
 mkdir -p /etc/salt
