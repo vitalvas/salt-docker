@@ -14,7 +14,7 @@ apt update -qy
 apt upgrade -qy
 apt install -qy \
     git openssh-server curl dpkg swig libssl-dev openssl libc-bin libgit2-dev libffi-dev libxslt1-dev patchelf \
-    python-is-python3 python3-pip python3-dev python3-cffi python3-venv
+    python-is-python3 python3-pip python3-dev python3-cffi python3-venv pass git-crypt
 
 python3 -m venv /opt/saltstack/salt
 /opt/saltstack/salt/bin/pip install wheel
