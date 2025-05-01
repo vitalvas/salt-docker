@@ -45,9 +45,6 @@ mkdir -p /etc/salt/master.d
     msgpack \
     msgpack-pure \
     napalm \
-    napalm-junos \
-    napalm-logs \
-    napalm-ros \
     netaddr \
     packaging \
     psycopg-binary \
