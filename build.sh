@@ -49,7 +49,6 @@ mkdir -p /etc/salt/master.d
     packaging \
     psycopg-binary \
     py-consul \
-    pycrypto \
     pycryptodome \
     pyghmi \
     pygit2==1.14.1 \
