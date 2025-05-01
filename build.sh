@@ -20,7 +20,6 @@ python3 -m venv /opt/saltstack/salt
 /opt/saltstack/salt/bin/pip install wheel
 /opt/saltstack/salt/bin/pip install salt==${VERSION}.*
 
-mkdir -p /etc/salt
 mkdir -p /etc/salt/master.d
 
 /opt/saltstack/salt/bin/pip install --no-cache-dir \
@@ -29,6 +28,7 @@ mkdir -p /etc/salt/master.d
     boto3 \
     cffi \
     cherrypy \
+    ciscoconfparse \
     cryptography \
     distro \
     dnspython \
@@ -45,6 +45,10 @@ mkdir -p /etc/salt/master.d
     msgpack \
     msgpack-pure \
     napalm \
+    napalm-junos \
+    napalm-logs \
+    napalm-ros \
+    netaddr \
     packaging \
     psycopg-binary \
     py-consul \
